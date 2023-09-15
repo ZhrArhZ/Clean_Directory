@@ -19,7 +19,7 @@ class CleanDirectory:
         self.dir_path = dir_path
         if not self.dir_path.exists():
             raise FileNotFoundError(f"{self.dir_path} doesn't exist")
-       
+   
         with open(DATA_DIR / 'extensions.json') as ex:
             self.extension_categories = json.load(ex)
 
@@ -36,13 +36,13 @@ class CleanDirectory:
             list: A list of pathlib.Path objects representing regular files.
         """
 
-        dir_files = [p for p in DIR_PATH.iterdir() if p.is_file()
+        dir_files = [p for p in self.dir_path.iterdir() if p.is_file()
                      and not str(p.name).startswith('.')]
 
         return dir_files
 
     def _categorize_files(self):
-    
+ 
         """
         Categorize files based on their extensions.
 
@@ -85,7 +85,7 @@ class CleanDirectory:
                                                  file_path.name)
             logger.info(f"Moving {source_path} to {destination_path} ...")
             shutil.move(source_path, destination_path)
-          
+       
 
 if __name__ == "__main__":
     DIR_PATH = Path(input("What's the Directory Path intended to be clean? "))
